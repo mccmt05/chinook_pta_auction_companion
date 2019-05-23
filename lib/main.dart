@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'data/dataObjects.dart';
-import 'data/strConstants.dart';
+import 'style/custom_expansion_tile.dart' as customExpansionTile;
 import 'util/favoritesUtils.dart';
 
-void main() => runApp(new MaterialApp(home: new MyApp(), debugShowCheckedModeBanner: false, title: 'ChinookTrailPTA Silent Auction Companion',),);
+void main() => runApp(new MaterialApp(home: new MyApp(),
+                      debugShowCheckedModeBanner: false,
+                      title: 'ChinookTrailPTA Silent Auction Companion',),);
 
 class MyApp extends StatefulWidget {
   @override
@@ -18,7 +20,7 @@ class _MyAppState extends State<MyApp> {
     return new Scaffold(
       appBar: AppBar(
         title: Text("CTE PTA Silent Auction Companion",
-          style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),),
+                    style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),),
         backgroundColor: Colors.orange,
         actions: <Widget>[
           IconButton(icon: Icon(Icons.favorite), color: Colors.red, onPressed: pushSaved),
@@ -36,14 +38,15 @@ class _MyAppState extends State<MyApp> {
   Widget buildIndivGroupingList(List<AuctionItem> itemList,  bool fromFavorites) {
     return Container(
       color: itemList[0].itemGroup.groupColor,
-      child: ExpansionTile(
+      child: customExpansionTile.ExpansionTile(
         title: new Text(itemList[0].itemGroup.groupName + "\nEnd Time: " + itemList[0].itemGroup.endTime,
                         style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),),
+        headerBackgroundColor: itemList[0].itemGroup.groupColor,
         backgroundColor: itemList[0].itemGroup.groupColor,
+        iconColor: Colors.black,
         children: <Widget>[
           new Column(
-            children: buildExpandableContent(itemList, fromFavorites),
-          ),
+            children: buildExpandableContent(itemList, fromFavorites),),
         ],
         initiallyExpanded: true,
       ),
@@ -57,20 +60,18 @@ class _MyAppState extends State<MyApp> {
       if(fromFavorites) {
         columnContent.add(
           new ListTile(
-            title: new Text(itemInfoStr(item),
-              style: new TextStyle(fontSize: 14.0, color: Colors.black),),
+            title: new Text(item.itemInfoStr(),
+                            style: new TextStyle(fontSize: 14.0, color: Colors.black),),
           ),
         );
       }
       else {
         columnContent.add(
           new ListTile(
-            title: new Text(itemInfoStr(item),
-              style: new TextStyle(fontSize: 14.0, color: Colors.black),),
-            trailing: Icon(
-              alreadySaved ? Icons.favorite : Icons.favorite_border,
-              color: alreadySaved ? Colors.red : null,
-            ),
+            title: new Text(item.itemInfoStr(),
+                            style: new TextStyle(fontSize: 14.0, color: Colors.black),),
+            trailing: Icon(alreadySaved ? Icons.favorite : Icons.favorite_border,
+                           color: alreadySaved ? Colors.red : null,),
             onTap: () {
               setState(() {
                 if (alreadySaved) {
@@ -96,15 +97,14 @@ class _MyAppState extends State<MyApp> {
               List<AuctionItem> _savedSorted = _saved.toList();
               _savedSorted.sort((a, b) => a.itemNum.compareTo(b.itemNum));
 
-              final List<List<AuctionItem>> favList = buildFavoritesList(
-                  _savedSorted);
+              final List<List<AuctionItem>> favList = buildFavoritesList(_savedSorted);
 
               return Scaffold(
                 appBar: AppBar(
                   title: Text("Saved Auction Items", style: new TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),),
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),),
                   backgroundColor: Colors.orange,
                 ),
                 body: new ListView.builder(
@@ -119,13 +119,13 @@ class _MyAppState extends State<MyApp> {
               return Scaffold(
                   appBar: AppBar(
                     title: Text("Saved Auction Items", style: new TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),),
                     backgroundColor: Colors.orange,
                   ),
                   body: new ListTile(title: new Text("You currently have not selected any favorites",
-                    style: new TextStyle(fontSize: 14.0, color: Colors.black),))
+                                                     style: new TextStyle(fontSize: 14.0, color: Colors.black),))
               );
             }
           }

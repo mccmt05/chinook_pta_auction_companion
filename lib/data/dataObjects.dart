@@ -19,6 +19,10 @@ class AuctionItem {
   final AuctionGrouping itemGroup;
 
   AuctionItem(this.itemNum, this.itemTitle, this.itemTeacher, this.itemValue, this.itemDescription, this.itemGroup);
+
+  String itemInfoStr() {
+    return "Item " + this.itemNum.toString() + ": " + this.itemTitle + "\nTeacher: " + this.itemTeacher + "\nValue: \$" + this.itemValue.toString() + "\nDescription: " + this.itemDescription;
+  }
 }
 
 AuctionGrouping blueGrouping = new AuctionGrouping("Blue Section", Colors.lightBlue, "7:00 PM");
