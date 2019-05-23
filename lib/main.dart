@@ -51,7 +51,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("CTE PTA Silent Auction Companion", style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),),
+        title: Text("CTE PTA Silent Auction Companion",
+                    style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),),
         backgroundColor: Colors.orange,
         actions: <Widget>[
           IconButton(icon: Icon(Icons.favorite), color: Colors.red, onPressed: _pushSaved),
@@ -69,7 +70,8 @@ class _MyAppState extends State<MyApp> {
   Widget _buildIndivGroupingList(List<AuctionItem> itemList,  bool fromFavorites) {
     return ExpansionTile(
       title: new Text(itemList[0].itemGroup.groupName + "\nEnd Time: " + itemList[0].itemGroup.endTime,
-        style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black) ,),
+        style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
+      ),
       backgroundColor: itemList[0].itemGroup.groupColor,
       children: <Widget>[
         new Column(
@@ -87,24 +89,16 @@ class _MyAppState extends State<MyApp> {
       if(fromFavorites) {
         columnContent.add(
           new ListTile(
-            title: new Text(
-              "Item " + item.itemNum.toString() + ": " + item.itemTitle +
-                  "\nTeacher: " + item.itemTeacher + "\nValue: \$" +
-                  item.itemValue.toString() + "\nDescription: " +
-                  item.itemDescription,
-              style: new TextStyle(fontSize: 14.0, color: Colors.black),),
+            title: new Text(itemInfoStr(item),
+                            style: new TextStyle(fontSize: 14.0, color: Colors.black),),
           ),
         );
       }
       else {
         columnContent.add(
           new ListTile(
-            title: new Text(
-              "Item " + item.itemNum.toString() + ": " + item.itemTitle +
-                  "\nTeacher: " + item.itemTeacher + "\nValue: \$" +
-                  item.itemValue.toString() + "\nDescription: " +
-                  item.itemDescription,
-              style: new TextStyle(fontSize: 14.0, color: Colors.black),),
+            title: new Text(itemInfoStr(item),
+                            style: new TextStyle(fontSize: 14.0, color: Colors.black),),
             trailing: Icon(
               alreadySaved ? Icons.favorite : Icons.favorite_border,
               color: alreadySaved ? Colors.red : null,
@@ -124,6 +118,10 @@ class _MyAppState extends State<MyApp> {
     }
 
     return ListTile.divideTiles(context: context, tiles: columnContent).toList();
+  }
+
+  String itemInfoStr(AuctionItem item) {
+    return "Item " + item.itemNum.toString() + ": " + item.itemTitle + "\nTeacher: " + item.itemTeacher + "\nValue: \$" + item.itemValue.toString() + "\nDescription: " + item.itemDescription;
   }
 
   void _pushSaved() {
