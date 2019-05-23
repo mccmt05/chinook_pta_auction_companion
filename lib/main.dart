@@ -34,16 +34,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget buildIndivGroupingList(List<AuctionItem> itemList,  bool fromFavorites) {
-    return ExpansionTile(
-      title: new Text(itemList[0].itemGroup.groupName + "\nEnd Time: " + itemList[0].itemGroup.endTime,
-        style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),),
-      backgroundColor: itemList[0].itemGroup.groupColor,
-      children: <Widget>[
-        new Column(
-          children: buildExpandableContent(itemList, fromFavorites),
-        ),
-      ],
-      initiallyExpanded: true,
+    return Container(
+      color: itemList[0].itemGroup.groupColor,
+      child: ExpansionTile(
+        title: new Text(itemList[0].itemGroup.groupName + "\nEnd Time: " + itemList[0].itemGroup.endTime,
+                        style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),),
+        backgroundColor: itemList[0].itemGroup.groupColor,
+        children: <Widget>[
+          new Column(
+            children: buildExpandableContent(itemList, fromFavorites),
+          ),
+        ],
+        initiallyExpanded: true,
+      ),
     );
   }
 
