@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data/dataObjects.dart';
+import 'style/custom_expansion_tile.dart' as customExpansionTile;
 import 'util/favoritesUtils.dart';
 
 void main() => runApp(new MaterialApp(home: new MyApp(),
@@ -37,10 +38,12 @@ class _MyAppState extends State<MyApp> {
   Widget buildIndivGroupingList(List<AuctionItem> itemList,  bool fromFavorites) {
     return Container(
       color: itemList[0].itemGroup.groupColor,
-      child: ExpansionTile(
+      child: customExpansionTile.ExpansionTile(
         title: new Text(itemList[0].itemGroup.groupName + "\nEnd Time: " + itemList[0].itemGroup.endTime,
                         style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),),
+        headerBackgroundColor: itemList[0].itemGroup.groupColor,
         backgroundColor: itemList[0].itemGroup.groupColor,
+        iconColor: Colors.black,
         children: <Widget>[
           new Column(
             children: buildExpandableContent(itemList, fromFavorites),),
